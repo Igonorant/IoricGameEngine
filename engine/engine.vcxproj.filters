@@ -21,12 +21,18 @@
     <ClCompile Include="src\ioric.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\texture_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ioric.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ioric_error.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\texture_manager.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

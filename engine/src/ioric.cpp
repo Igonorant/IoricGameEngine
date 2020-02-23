@@ -51,7 +51,8 @@ IoricError Ioric::Init(const char* title, int width, int height)
 		return IoricError::SDLCreateRendererFail;
 	}
 
-
+	// Initialize Texture Manager
+	texManager.SetRenderer(renderer);
 
 	return IoricError::Success;
 }
@@ -64,19 +65,17 @@ IoricError Ioric::Quit()
 	return IoricError::Success;
 }
 
+unsigned int Ioric::LoadTexture(const char* path)
+{
+	return texManager.LoadTexture(path);
+}
+
 
 // Methods to test some functionalities
 // Not definitive
 
-void Ioric::AddTexture(const char* path)
-{
-	tmpSurface = IMG_Load(path);
-	tmpTexture = SDL_CreateTextureFromSurface(renderer, tmpSurface);
-	SDL_FreeSurface(tmpSurface);
 
-}
-
-void Ioric::Render()
+void Ioric::Render(unsigned int ID)
 {
 	while (1) {
 		SDL_Event e;
@@ -84,12 +83,18 @@ void Ioric::Render()
 			if (e.type == SDL_QUIT) {
 				break;
 			}
+			if (e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.sym == SDLK_LEFT)
+					ID--;
+				if (e.key.keysym.sym == SDLK_RIGHT)
+					ID++;
+			}
+
 		}
 
 		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, tmpTexture, NULL, NULL);
+		SDL_RenderCopy(renderer, texManager.GetTexture(ID), NULL, NULL);
 		SDL_RenderPresent(renderer);
 	}
 
-	SDL_DestroyTexture(tmpTexture);
 }

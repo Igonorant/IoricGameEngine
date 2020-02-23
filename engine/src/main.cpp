@@ -11,12 +11,17 @@ int main(int argc, char* argv[])
 	if (errorHandler == IoricError::Success)
 	{
 
-		engine.AddTexture("assets\texture_test.bmp");
-		engine.Render();
+		unsigned int texID = engine.LoadTexture("assets\\texture_test.bmp");
+		texID = engine.LoadTexture("assets\\texture_test.bmp");
+		texID = engine.LoadTexture("assets\\texture_test.bmp");
+		texID = engine.LoadTexture("assets\\texture_test.bmp");
+		texID = engine.LoadTexture("assets\\texture_test.bmp");
+		texID = engine.LoadTexture("assets\\texture_test2.png");
+		engine.Render(texID);
 
 	}
 
-	std::cin.get();
+	//std::cin.get();
 
 	engine.Quit();
 

@@ -152,10 +152,12 @@
   <ItemGroup>
     <ClCompile Include="src\ioric.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\texture_manager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ioric.h" />
     <ClInclude Include="src\ioric_error.h" />
+    <ClInclude Include="src\texture_manager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
