@@ -70,31 +70,58 @@ unsigned int Ioric::LoadTexture(const char* path)
 	return texManager.LoadTexture(path);
 }
 
+bool Ioric::HandleEvents()
+{
+	while (SDL_PollEvent(&events)) {
+		switch (events.type) {
+		case SDL_QUIT:
+			return false;
+			break;
+
+		case SDL_KEYDOWN:
+			if (events.key.keysym.sym == SDLK_ESCAPE)
+				return false;
+				break;
+			if (events.key.keysym.sym == SDLK_LEFT)
+				break;
+			if (events.key.keysym.sym == SDLK_RIGHT)
+				ClearRenderQueue();
+				break;
+		}
+	}
+	return true;
+}
+
+void Ioric::Update()
+{
+}
+
 
 // Methods to test some functionalities
 // Not definitive
 
 
-void Ioric::Render(unsigned int ID)
+void Ioric::Render()
 {
-	while (1) {
-		SDL_Event e;
-		if (SDL_PollEvent(&e)) {
-			if (e.type == SDL_QUIT) {
-				break;
-			}
-			if (e.type == SDL_KEYDOWN) {
-				if (e.key.keysym.sym == SDLK_LEFT)
-					ID--;
-				if (e.key.keysym.sym == SDLK_RIGHT)
-					ID++;
-			}
+		SDL_RenderClear(renderer);
 
+		for (unsigned int i = 0; i < rIDs.size(); i++) {
+			SDL_RenderCopy(renderer, texManager.GetTexture(rIDs[i]), srcRects[i], dstRects[i]);
 		}
 
-		SDL_RenderClear(renderer);
-		SDL_RenderCopy(renderer, texManager.GetTexture(ID), NULL, NULL);
 		SDL_RenderPresent(renderer);
 	}
 
+void Ioric::AddToRenderQueue(unsigned int texID, SDL_Rect* srcRect, SDL_Rect* dstRect)
+{
+	rIDs.push_back(texID);
+	srcRects.push_back(srcRect);
+	dstRects.push_back(dstRect);
+}
+
+void Ioric::ClearRenderQueue()
+{
+	rIDs.clear();
+	srcRects.clear();
+	dstRects.clear();
 }

@@ -48,6 +48,8 @@ unsigned int TextureManager::LoadTexture(const char* path)
 				lastID++;
 				textures.emplace_back(lastID, path, tmpTexture);
 
+				SDL_Log("Texture %s loaded!", path);
+
 				tmpTexture = NULL;
 				SDL_FreeSurface(tmpSurface);
 				tmpSurface = NULL;

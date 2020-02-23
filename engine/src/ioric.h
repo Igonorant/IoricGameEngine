@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include "ioric_error.h"
 #include "texture_manager.h"
+#include <vector>
 
 class Ioric
 {
@@ -20,16 +21,26 @@ public:
 
 	// Methods to test some functionalities
 	// Not definitive
-	void Render(unsigned int ID);
+	bool HandleEvents();
+	void Update();
+	void Render();
+
+	void AddToRenderQueue(unsigned int texID, SDL_Rect* srcRect, SDL_Rect* dstRect);
+	void ClearRenderQueue();
 
 private:
 	
+
 private:
 	SDL_Window* window = NULL;
 	SDL_Renderer* renderer = NULL;
 	TextureManager texManager;
+	SDL_Event events;
+	std::vector<unsigned int> rIDs;
+	std::vector<SDL_Rect*> srcRects, dstRects;
 
 	// Variables to test some functionalities
 	// Not definitive
 	SDL_Surface* tmpSurface = NULL;
+	
 };
